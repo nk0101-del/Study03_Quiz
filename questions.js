@@ -183,5 +183,97 @@ const QUESTIONS = [
     answer: 0,
     explanation: "그리니치 자오선은 런던 그리니치를 지나는 경도 0°선으로, 1884~1984년 국제 표준이었다.",
     source: { name: "브리태니커 「Greenwich meridian」", url: "https://www.britannica.com/place/Greenwich-meridian" }
+  },
+
+  // ---------- 과학 ----------
+  {
+    id: "sci-01",
+    category: "과학",
+    question: "원자 번호가 1인 원소는?",
+    choices: ["수소", "헬륨", "리튬", "탄소"],
+    answer: 0,
+    explanation: "수소는 원자 번호가 1이고 원자량이 약 1.008인 원소다.",
+    source: { name: "브리태니커 「Hydrogen」", url: "https://www.britannica.com/science/hydrogen" }
+  },
+  {
+    id: "sci-02",
+    category: "과학",
+    question: "녹색 식물이 빛 에너지를 이용해 물과 이산화탄소로 산소와 유기물을 만드는 과정은?",
+    choices: ["광합성", "세포 호흡", "발효", "증산 작용"],
+    answer: 0,
+    explanation: "광합성은 빛 에너지로 물과 이산화탄소를 산소와 에너지가 풍부한 유기물로 바꾸는 과정이다.",
+    source: { name: "브리태니커 「Photosynthesis」", url: "https://www.britannica.com/science/photosynthesis" }
+  },
+  {
+    id: "sci-03",
+    category: "과학",
+    question: "1953년 DNA가 이중 나선 구조임을 밝힌 두 과학자는?",
+    choices: ["왓슨과 크릭", "멘델과 다윈", "퀴리 부부", "보어와 러더퍼드"],
+    answer: 0,
+    explanation: "1953년 왓슨과 크릭은 프랭클린과 윌킨스의 연구에 힘입어 DNA의 이중 나선 구조를 밝혔다.",
+    source: { name: "브리태니커 「DNA」", url: "https://www.britannica.com/science/DNA" }
+  },
+  {
+    id: "sci-04",
+    category: "과학",
+    question: "포도당을 분해해 세포가 쓸 에너지(ATP)를 만들어 '세포의 발전소'라 불리는 세포 소기관은?",
+    choices: ["미토콘드리아", "리보솜", "골지체", "액포"],
+    answer: 0,
+    explanation: "미토콘드리아는 포도당을 분해해 ATP를 만들며 '세포의 발전소'라 불린다.",
+    source: { name: "브리태니커 「Mitochondrion」", url: "https://www.britannica.com/science/mitochondrion" }
+  },
+  {
+    id: "sci-05",
+    category: "과학",
+    question: "외부에서 힘이 작용하지 않으면 정지한 물체는 계속 정지하고, 움직이는 물체는 등속 직선 운동을 계속한다는 법칙은?",
+    choices: ["뉴턴의 운동 제1법칙", "뉴턴의 운동 제2법칙", "뉴턴의 운동 제3법칙", "만유인력의 법칙"],
+    answer: 0,
+    explanation: "뉴턴의 운동 제1법칙에 따르면 힘이 작용하지 않는 물체는 정지 상태나 등속 직선 운동을 유지한다.",
+    source: { name: "브리태니커 「Newton's laws of motion」", url: "https://www.britannica.com/science/Newtons-laws-of-motion" }
+  },
+  {
+    id: "sci-06",
+    category: "과학",
+    question: "2026년 현재 태양계 행성 8개 가운데 태양에서 가장 가까운 행성은?",
+    choices: ["수성", "금성", "지구", "화성"],
+    answer: 0,
+    explanation: "NASA에 따르면 수성은 태양계 행성 가운데 태양에 가장 가까운 행성이다.",
+    source: { name: "NASA 「Mercury」", url: "https://science.nasa.gov/mercury/" }
+  },
+  {
+    id: "sci-07",
+    category: "과학",
+    question: "지구의 겉껍질인 암석권의 움직임으로 산맥 형성, 화산, 지진을 설명하는 이론은?",
+    choices: ["판 구조론", "빅뱅 이론", "진화론", "상대성 이론"],
+    answer: 0,
+    explanation: "판 구조론은 암석권의 움직임으로 산맥 형성, 화산, 지진을 한데 설명하는 이론이다.",
+    source: { name: "브리태니커 「Plate tectonics」", url: "https://www.britannica.com/science/plate-tectonics" }
+  },
+  {
+    id: "sci-08",
+    category: "과학",
+    question: "순수한 물처럼 산성도 염기성도 아닌 중성 용액의 pH는?",
+    choices: ["7", "0", "1", "14"],
+    answer: 0,
+    explanation: "pH 7은 중성이며, 7보다 작으면 산성, 7보다 크면 염기성이다.",
+    source: { name: "브리태니커 「pH」", url: "https://www.britannica.com/science/pH" }
+  },
+  {
+    id: "sci-09",
+    category: "과학",
+    question: "드라이아이스처럼 고체가 액체를 거치지 않고 바로 기체로 바뀌는 현상은?",
+    choices: ["승화", "융해", "응결", "기화"],
+    answer: 0,
+    explanation: "승화는 고체가 액체를 거치지 않고 기체가 되는 현상으로, 드라이아이스가 그 예다.",
+    source: { name: "브리태니커 「Sublimation」", url: "https://www.britannica.com/science/sublimation-phase-change" }
+  },
+  {
+    id: "sci-10",
+    category: "과학",
+    question: "적혈구 속에서 철 원자로 산소와 결합해 조직까지 산소를 나르는 단백질은?",
+    choices: ["헤모글로빈", "인슐린", "케라틴", "콜라겐"],
+    answer: 0,
+    explanation: "헤모글로빈은 적혈구 속 철을 함유한 단백질로, 산소를 조직까지 운반한다.",
+    source: { name: "브리태니커 「Hemoglobin」", url: "https://www.britannica.com/science/hemoglobin" }
   }
 ];

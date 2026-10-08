@@ -185,5 +185,6 @@ function checkCategory(category) {
 
 checkCategory("한국사");
 checkCategory("세계지리");
+checkCategory("과학");
 
 if (typeof document !== "undefined") init();
