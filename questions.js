@@ -275,5 +275,97 @@ const QUESTIONS = [
     answer: 0,
     explanation: "헤모글로빈은 적혈구 속 철을 함유한 단백질로, 산소를 조직까지 운반한다.",
     source: { name: "브리태니커 「Hemoglobin」", url: "https://www.britannica.com/science/hemoglobin" }
+  },
+
+  // ---------- 예술과 문화 ----------
+  {
+    id: "art-01",
+    category: "예술과 문화",
+    question: "파리 루브르 박물관에 걸려 있는 유화 「모나리자」를 그린 화가는?",
+    choices: ["레오나르도 다빈치", "미켈란젤로", "라파엘로", "보티첼리"],
+    answer: 0,
+    explanation: "「모나리자」는 레오나르도 다빈치가 포플러 나무판에 그린 유화로, 루브르 박물관에 있다.",
+    source: { name: "브리태니커 「Mona Lisa」", url: "https://www.britannica.com/topic/Mona-Lisa-painting" }
+  },
+  {
+    id: "art-02",
+    category: "예술과 문화",
+    question: "1889년 프랑스 생레미의 요양원에 머물며 「별이 빛나는 밤」을 그린 화가는?",
+    choices: ["빈센트 반 고흐", "폴 고갱", "클로드 모네", "폴 세잔"],
+    answer: 0,
+    explanation: "반 고흐는 1889년 생레미 근처 요양원에 머무는 동안 「별이 빛나는 밤」을 그렸다.",
+    source: { name: "브리태니커 「The Starry Night」", url: "https://www.britannica.com/topic/The-Starry-Night" }
+  },
+  {
+    id: "art-03",
+    category: "예술과 문화",
+    question: "마지막 악장에서 합창단이 실러의 시 「환희의 송가」를 부르는 교향곡 제9번의 작곡가는?",
+    choices: ["베토벤", "모차르트", "하이든", "브람스"],
+    answer: 0,
+    explanation: "베토벤의 교향곡 제9번은 마지막 악장에서 실러의 「환희의 송가」를 합창으로 부른다.",
+    source: { name: "브리태니커 「Symphony No. 9 in D Minor」", url: "https://www.britannica.com/topic/Symphony-No-9-in-D-Minor" }
+  },
+  {
+    id: "art-04",
+    category: "예술과 문화",
+    question: "1599~1601년 무렵에 쓰인 5막 비극 『햄릿』의 작가는?",
+    choices: ["윌리엄 셰익스피어", "크리스토퍼 말로", "벤 존슨", "존 밀턴"],
+    answer: 0,
+    explanation: "『햄릿』은 윌리엄 셰익스피어가 1599~1601년 무렵에 쓴 5막 비극이다.",
+    source: { name: "브리태니커 「Hamlet」", url: "https://www.britannica.com/topic/Hamlet-by-Shakespeare" }
+  },
+  {
+    id: "art-05",
+    category: "예술과 문화",
+    question: "근대 소설의 원형으로 꼽히는 『돈키호테』의 작가는?",
+    choices: ["미겔 데 세르반테스", "로페 데 베가", "단테 알리기에리", "조반니 보카치오"],
+    answer: 0,
+    explanation: "『돈키호테』는 미겔 데 세르반테스의 소설로, 근대 소설의 원형으로 꼽힌다.",
+    source: { name: "브리태니커 「Don Quixote」", url: "https://www.britannica.com/topic/Don-Quixote-novel" }
+  },
+  {
+    id: "art-06",
+    category: "예술과 문화",
+    question: "1876년에 작곡된 발레 음악 「백조의 호수」의 작곡가는?",
+    choices: ["차이콥스키", "스트라빈스키", "라흐마니노프", "림스키코르사코프"],
+    answer: 0,
+    explanation: "「백조의 호수」는 러시아 작곡가 차이콥스키가 1876년에 작곡한 발레다.",
+    source: { name: "브리태니커 「Swan Lake」", url: "https://www.britannica.com/topic/Swan-Lake-ballet-by-Tchaikovsky" }
+  },
+  {
+    id: "art-07",
+    category: "예술과 문화",
+    question: "무굴 황제 샤자한이 왕비 뭄타즈 마할의 무덤으로 인도 아그라에 지은 건축물은?",
+    choices: ["타지마할", "앙코르와트", "보로부두르", "쿠트브 미나르"],
+    answer: 0,
+    explanation: "타지마할은 무굴 황제 샤자한이 왕비 뭄타즈 마할의 무덤으로 아그라에 세웠다.",
+    source: { name: "브리태니커 「Taj Mahal」", url: "https://www.britannica.com/topic/Taj-Mahal" }
+  },
+  {
+    id: "art-08",
+    category: "예술과 문화",
+    question: "1883년 건축가 가우디가 설계를 맡은 스페인 바르셀로나의 성당은?",
+    choices: ["사그라다 파밀리아", "노트르담 대성당", "쾰른 대성당", "성 베드로 대성당"],
+    answer: 0,
+    explanation: "바르셀로나의 사그라다 파밀리아는 1883년 카탈루냐 건축가 가우디가 설계를 맡았다.",
+    source: { name: "브리태니커 「Sagrada Família」", url: "https://www.britannica.com/topic/Sagrada-Familia" }
+  },
+  {
+    id: "art-09",
+    category: "예술과 문화",
+    question: "소리꾼 한 명이 북 치는 고수와 함께 노래, 말, 몸짓으로 긴 이야기를 펼치는 한국 전통 음악은?",
+    choices: ["판소리", "민요", "정가", "산조"],
+    answer: 0,
+    explanation: "판소리는 소리꾼과 고수가 노래, 말, 몸짓으로 이야기를 펼치는 음악으로, 유네스코 인류무형유산이다.",
+    source: { name: "유네스코 무형유산 「Pansori epic chant」", url: "https://ich.unesco.org/en/RL/pansori-epic-chant-00070" }
+  },
+  {
+    id: "art-10",
+    category: "예술과 문화",
+    question: "조선 왕실의 조상을 모신 유교 사당으로, 1995년 유네스코 세계유산에 등재된 곳은?",
+    choices: ["종묘", "경복궁", "창덕궁", "수원 화성"],
+    answer: 0,
+    explanation: "종묘는 조선 왕실의 조상을 모신 유교 사당으로, 1995년 유네스코 세계유산에 등재되었다.",
+    source: { name: "유네스코 세계유산 「Jongmyo Shrine」", url: "https://whc.unesco.org/en/list/738" }
   }
 ];

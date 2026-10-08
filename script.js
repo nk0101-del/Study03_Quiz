@@ -186,5 +186,7 @@ function checkCategory(category) {
 checkCategory("한국사");
 checkCategory("세계지리");
 checkCategory("과학");
+checkCategory("예술과 문화");
+check("문항 40개 전체가 규칙에 맞음", () => assertEqual(validateQuestions(QUESTIONS), []));
 
 if (typeof document !== "undefined") init();
