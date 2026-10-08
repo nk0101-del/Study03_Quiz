@@ -91,5 +91,97 @@ const QUESTIONS = [
     answer: 0,
     explanation: "대한민국임시정부는 1919년 4월 11일 중국 상하이에서 수립되었다.",
     source: { name: "한국민족문화대백과사전 「대한민국 임시정부 수립 기념일」", url: "https://encykorea.aks.ac.kr/Article/E0080590" }
+  },
+
+  // ---------- 세계지리 ----------
+  {
+    id: "geo-01",
+    category: "세계지리",
+    question: "오스트레일리아의 연방 수도는?",
+    choices: ["캔버라", "시드니", "멜버른", "퍼스"],
+    answer: 0,
+    explanation: "캔버라는 오스트레일리아 연방의 수도로, 시드니에서 남서쪽으로 약 240km 떨어져 있다.",
+    source: { name: "브리태니커 「Canberra」", url: "https://www.britannica.com/place/Canberra" }
+  },
+  {
+    id: "geo-02",
+    category: "세계지리",
+    question: "네팔과 중국(티베트) 국경에 있는 에베레스트산이 속한 산맥은?",
+    choices: ["히말라야산맥", "알프스산맥", "안데스산맥", "로키산맥"],
+    answer: 0,
+    explanation: "에베레스트산은 히말라야산맥의 네팔과 중국(티베트) 국경에 있다.",
+    source: { name: "브리태니커 「Mount Everest」", url: "https://www.britannica.com/place/Mount-Everest" }
+  },
+  {
+    id: "geo-03",
+    category: "세계지리",
+    question: "남아메리카 남쪽 끝에서 카리브해 연안까지 약 8,900km 이어지는 산계는?",
+    choices: ["안데스산맥", "로키산맥", "우랄산맥", "아틀라스산맥"],
+    answer: 0,
+    explanation: "안데스산맥은 남아메리카 남쪽 끝에서 북쪽 카리브해 연안까지 약 8,900km 이어진다.",
+    source: { name: "브리태니커 「Andes Mountains」", url: "https://www.britannica.com/place/Andes-Mountains" }
+  },
+  {
+    id: "geo-04",
+    category: "세계지리",
+    question: "북아프리카의 거의 전부를 차지하는 사막은?",
+    choices: ["사하라 사막", "고비 사막", "아타카마 사막", "칼라하리 사막"],
+    answer: 0,
+    explanation: "사하라 사막은 북아프리카의 거의 전부를 차지하며, 동서 길이가 약 4,800km다.",
+    source: { name: "브리태니커 「Sahara」", url: "https://www.britannica.com/place/Sahara-desert-Africa" }
+  },
+  {
+    id: "geo-05",
+    category: "세계지리",
+    question: "이집트의 수에즈 지협을 가로질러 지중해와 홍해를 잇는 운하는?",
+    choices: ["수에즈 운하", "파나마 운하", "킬 운하", "코린트 운하"],
+    answer: 0,
+    explanation: "수에즈 운하는 이집트의 수에즈 지협을 가로질러 지중해와 홍해를 잇는다.",
+    source: { name: "브리태니커 「Suez Canal」", url: "https://www.britannica.com/topic/Suez-Canal" }
+  },
+  {
+    id: "geo-06",
+    category: "세계지리",
+    question: "적도(Equator) 위에 있어 나라 이름도 적도에서 따온 남아메리카 국가는?",
+    choices: ["에콰도르", "콜롬비아", "페루", "볼리비아"],
+    answer: 0,
+    explanation: "에콰도르는 남아메리카 북서부에 있으며, 나라 이름은 적도(Equator)에서 따왔다.",
+    source: { name: "브리태니커 「Ecuador」", url: "https://www.britannica.com/place/Ecuador" }
+  },
+  {
+    id: "geo-07",
+    category: "세계지리",
+    question: "2026년 현재 국토 면적을 기준으로 세계에서 가장 큰 나라는?",
+    choices: ["러시아", "캐나다", "중국", "미국"],
+    answer: 0,
+    explanation: "러시아는 면적이 세계 1위인 나라로, 2위 캐나다의 약 두 배에 이른다.",
+    source: { name: "브리태니커 「Russia」", url: "https://www.britannica.com/place/Russia" }
+  },
+  {
+    id: "geo-08",
+    category: "세계지리",
+    question: "독일 슈바르츠발트에서 시작해 10개 나라를 지나 흑해로 흘러드는 강은?",
+    choices: ["다뉴브강", "라인강", "엘베강", "볼가강"],
+    answer: 0,
+    explanation: "다뉴브강은 독일 슈바르츠발트에서 시작해 10개 나라를 지나 흑해로 흘러든다.",
+    source: { name: "브리태니커 「Danube River」", url: "https://www.britannica.com/place/Danube-River" }
+  },
+  {
+    id: "geo-09",
+    category: "세계지리",
+    question: "빙하가 깎은 골짜기에 바닷물이 들어와 생긴, 내륙 깊이 뻗은 좁고 긴 만은?",
+    choices: ["피오르", "석호", "삼각주", "사주"],
+    answer: 0,
+    explanation: "피오르는 빙하 골짜기가 바닷물에 잠겨 생긴, 내륙 깊이 뻗은 좁고 긴 만이다.",
+    source: { name: "브리태니커 「Fjord」", url: "https://www.britannica.com/science/fjord" }
+  },
+  {
+    id: "geo-10",
+    category: "세계지리",
+    question: "1884년부터 1984년까지 국제 표준 본초 자오선(경도 0°)이 지난 런던의 지역은?",
+    choices: ["그리니치", "웨스트민스터", "캠든", "첼시"],
+    answer: 0,
+    explanation: "그리니치 자오선은 런던 그리니치를 지나는 경도 0°선으로, 1884~1984년 국제 표준이었다.",
+    source: { name: "브리태니커 「Greenwich meridian」", url: "https://www.britannica.com/place/Greenwich-meridian" }
   }
 ];
