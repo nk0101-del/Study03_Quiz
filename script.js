@@ -175,4 +175,14 @@ expectError("없는 카테고리", set => { set[0].category = "수학"; }, "korh
 expectError("id 중복", set => { set[1].id = "korhist-01"; }, "중복");
 expectError("카테고리 문항 수 부족", set => { set.splice(set.findIndex(q => q.category === "세계지리"), 1); }, "세계지리");
 
+function checkCategory(category) {
+  check(`${category} 문항 10개가 규칙에 맞음`, () => {
+    const list = QUESTIONS.filter(q => q.category === category);
+    assertEqual(list.length, 10);
+    assertEqual(validateQuestions(list).filter(e => !e.includes("문항이")), []);
+  });
+}
+
+checkCategory("한국사");
+
 if (typeof document !== "undefined") init();
