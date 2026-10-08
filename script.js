@@ -224,16 +224,37 @@ function handleNext() {
 }
 
 function showResult() {
+  const first = state.firstGame;
+  $("result-title").textContent = `${first.category}, 연습 모드 결과`;
+  $("result-score").textContent = formatScore(first.score, first.items.length);
+  $("result-note").hidden = first.mode !== "practice";
   showScreen("screen-result");
+}
+
+function showDataErrors(errors) {
+  const list = $("error-list");
+  list.replaceChildren(...errors.map(text => {
+    const li = document.createElement("li");
+    li.textContent = text;
+    return li;
+  }));
+  showScreen("screen-error");
 }
 
 function init() {
   if (new URLSearchParams(location.search).has("test")) showSelfTest();
+  const errors = validateQuestions(QUESTIONS);
+  if (errors.length) {
+    showDataErrors(errors);
+    return;
+  }
   for (const button of document.querySelectorAll("[data-category]")) {
     button.addEventListener("click", () => startGame("practice", button.dataset.category));
   }
   choiceButtons().forEach((button, i) => button.addEventListener("click", () => selectChoice(i)));
   $("btn-next").addEventListener("click", handleNext);
+  $("btn-again").addEventListener("click", () => startGame(state.firstGame.mode, state.firstGame.category));
+  $("btn-home").addEventListener("click", () => showScreen("screen-start"));
   showScreen("screen-start");
 }
 
