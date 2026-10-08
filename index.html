@@ -13,9 +13,39 @@
   <main>
     <section id="screen-start" hidden>
       <h1>상식 퀴즈</h1>
+      <div class="card">
+        <h2>연습 모드</h2>
+        <p>시간 제한과 힌트가 없고, 맞히면 1점입니다.</p>
+        <p class="notice">순위표에 기록되지 않음</p>
+      </div>
+      <h2>카테고리</h2>
+      <div class="button-list">
+        <button data-category="한국사">한국사</button>
+        <button data-category="세계지리">세계지리</button>
+        <button data-category="과학">과학</button>
+        <button data-category="예술과 문화">예술과 문화</button>
+      </div>
     </section>
 
     <section id="screen-quiz" hidden>
+      <div class="quiz-header">
+        <span id="quiz-meta"></span>
+        <span id="quiz-progress"></span>
+        <span id="quiz-score"></span>
+      </div>
+      <h2 id="quiz-question"></h2>
+      <div id="choices">
+        <button class="choice"></button>
+        <button class="choice"></button>
+        <button class="choice"></button>
+        <button class="choice"></button>
+      </div>
+      <div id="feedback" hidden>
+        <p id="feedback-verdict"></p>
+        <p id="feedback-explanation"></p>
+        <a id="feedback-source" target="_blank" rel="noopener"></a>
+      </div>
+      <button id="btn-next" class="primary" hidden>다음</button>
     </section>
 
     <section id="screen-result" hidden>
