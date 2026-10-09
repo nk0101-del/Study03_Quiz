@@ -201,3 +201,12 @@ h2 {
   background: #ffebe9;
   border-color: #cf222e;
 }
+
+.choice.removed {
+  visibility: hidden;
+}
+
+#btn-hint:disabled {
+  color: #59636e;
+  background: #f6f8fa;
+}

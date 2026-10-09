@@ -143,6 +143,14 @@ function isLastQuestion(game) {
   return game.index === game.items.length - 1;
 }
 
+// 현재 문항의 오답 보기 가운데 2개의 위치를 removed에 넣는다.
+function applyHint(game, rand = Math.random) {
+  if (game.mode !== "hint" || game.hintUsed || game.answered) return game;
+  const item = game.items[game.index];
+  const wrong = [0, 1, 2, 3].filter(i => i !== item.answer);
+  return { ...game, hintUsed: true, removed: shuffle(wrong, rand).slice(0, 2) };
+}
+
 // ---------- 화면 ----------
 
 function showScreen(id) {
@@ -192,6 +200,8 @@ function renderQuestion() {
   });
   $("feedback").hidden = true;
   $("btn-next").hidden = true;
+  $("btn-hint").hidden = g.mode !== "hint";
+  $("btn-hint").disabled = false;
   $("quiz-timer").hidden = g.mode !== "speed";
   if (g.mode === "speed") startTimer();
 }
@@ -220,6 +230,19 @@ function onTimeout() {
   if (state.game !== before) showFeedback();
 }
 
+// 지운 보기는 자리를 남겨 두어 다른 보기의 위치가 바뀌지 않게 한다.
+function useHint() {
+  const before = state.game;
+  state.game = applyHint(state.game);
+  if (state.game === before) return;
+  const buttons = choiceButtons();
+  for (const i of state.game.removed) {
+    buttons[i].classList.add("removed");
+    buttons[i].disabled = true;
+  }
+  $("btn-hint").disabled = true;
+}
+
 function selectChoice(index) {
   stopTimer();
   const before = state.game;
@@ -236,6 +259,7 @@ function showFeedback() {
     if (i === item.answer) button.classList.add("correct");
     else if (i === result.choice) button.classList.add("wrong");
   });
+  $("btn-hint").disabled = true;
   $("quiz-score").textContent = `점수 ${g.score}`;
   $("feedback-verdict").textContent = result.correct ? "정답입니다." : result.timedOut ? "시간 초과입니다. 오답입니다." : "오답입니다.";
   $("feedback-verdict").className = result.correct ? "verdict-correct" : "verdict-wrong";
@@ -292,6 +316,7 @@ function init() {
   $("btn-category-home").addEventListener("click", () => showScreen("screen-start"));
   choiceButtons().forEach((button, i) => button.addEventListener("click", () => selectChoice(i)));
   $("btn-next").addEventListener("click", handleNext);
+  $("btn-hint").addEventListener("click", useHint);
   $("btn-again").addEventListener("click", () => startGame(state.firstGame.mode, state.firstGame.category));
   $("btn-home").addEventListener("click", () => {
     stopTimer();
@@ -409,5 +434,34 @@ check("nextQuestion과 isLastQuestion", () => {
 
 check("모드 3개의 표시 이름", () => assertEqual(MODES, { practice: "연습", speed: "스피드", hint: "힌트" }));
 check("스피드 제한 시간은 15초", () => assertEqual(TIME_LIMIT, 15));
+
+const hintGame = () => createGame("hint", "과학", sciSet());
+check("applyHint: 오답 2개를 지우고 정답은 남김", () => {
+  const g = hintGame();
+  const h = applyHint(g);
+  assertEqual([h.hintUsed, h.removed.length, new Set(h.removed).size], [true, 2, 2]);
+  assertEqual(h.removed.includes(g.items[0].answer), false);
+  assertEqual(g.hintUsed, false);
+});
+check("applyHint: 한 문항에 한 번만", () => {
+  const h = applyHint(hintGame());
+  assertEqual(applyHint(h) === h, true);
+});
+check("applyHint: 힌트 모드가 아니면 동작하지 않음", () => {
+  const g = createGame("practice", "과학", sciSet());
+  assertEqual(applyHint(g) === g, true);
+});
+check("applyHint: 답한 뒤에는 동작하지 않음", () => {
+  const a = applyAnswer(hintGame(), 0);
+  assertEqual(applyHint(a) === a, true);
+});
+check("힌트를 쓰고 맞히면 0.5점", () => {
+  const h = applyHint(hintGame());
+  assertEqual(applyAnswer(h, h.items[0].answer).score, 0.5);
+});
+check("다음 문항에서 힌트를 다시 쓸 수 있음", () => {
+  const n = nextQuestion(applyAnswer(applyHint(hintGame()), 0));
+  assertEqual([n.hintUsed, n.removed], [false, []]);
+});
 
 if (typeof document !== "undefined") init();
