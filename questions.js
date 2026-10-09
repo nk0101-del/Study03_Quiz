@@ -329,7 +329,7 @@ const QUESTIONS = [
     question: "발레 「백조의 호수」의 작곡가는?",
     choices: ["차이콥스키", "스트라빈스키", "라흐마니노프", "림스키코르사코프"],
     answer: 0,
-    explanation: "「백조의 호수」는 표트르 일리치 차이콥스키가 곡을 쓴 발레다.",
+    explanation: "「백조의 호수」는 차이콥스키가 곡을 쓴 발레로, 1895년 마린스키 극장에서 프티파와 이바노프의 안무로 새로 올려졌다.",
     source: { name: "브리태니커 「Swan Lake」", url: "https://www.britannica.com/topic/Swan-Lake-ballet-by-Tchaikovsky" }
   },
   {
