@@ -142,10 +142,10 @@ const QUESTIONS = [
   {
     id: "geo-06",
     category: "세계지리",
-    question: "적도(Equator) 위에 있어 나라 이름도 적도에서 따온 남아메리카 국가는?",
+    question: "태평양의 갈라파고스 제도를 영토로 둔 남아메리카 국가는?",
     choices: ["에콰도르", "콜롬비아", "페루", "볼리비아"],
     answer: 0,
-    explanation: "에콰도르는 남아메리카 북서부에 있으며, 나라 이름은 적도(Equator)에서 따왔다.",
+    explanation: "갈라파고스 제도는 에콰도르 영토로, 본토 서쪽 태평양에 흩어져 있는 섬들이다.",
     source: { name: "브리태니커 「Ecuador」", url: "https://www.britannica.com/place/Ecuador" }
   },
   {
@@ -308,10 +308,10 @@ const QUESTIONS = [
   {
     id: "art-04",
     category: "예술과 문화",
-    question: "1599~1601년 무렵에 쓰인 5막 비극 『햄릿』의 작가는?",
+    question: "햄릿이 아버지를 죽인 숙부에게 복수하는 비극 『햄릿』의 작가는?",
     choices: ["윌리엄 셰익스피어", "크리스토퍼 말로", "벤 존슨", "존 밀턴"],
     answer: 0,
-    explanation: "『햄릿』은 윌리엄 셰익스피어가 1599~1601년 무렵에 쓴 5막 비극이다.",
+    explanation: "『햄릿』은 덴마크를 배경으로 한 윌리엄 셰익스피어의 비극으로, 햄릿이 아버지를 죽인 숙부에게 복수한다.",
     source: { name: "브리태니커 「Hamlet」", url: "https://www.britannica.com/topic/Hamlet-by-Shakespeare" }
   },
   {
@@ -326,10 +326,10 @@ const QUESTIONS = [
   {
     id: "art-06",
     category: "예술과 문화",
-    question: "1877년 모스크바 볼쇼이 극장에서 초연된 발레 「백조의 호수」의 작곡가는?",
+    question: "발레 「백조의 호수」의 작곡가는?",
     choices: ["차이콥스키", "스트라빈스키", "라흐마니노프", "림스키코르사코프"],
     answer: 0,
-    explanation: "「백조의 호수」는 러시아 작곡가 차이콥스키의 발레로, 1877년 볼쇼이 극장에서 초연되었다.",
+    explanation: "「백조의 호수」는 표트르 일리치 차이콥스키가 곡을 쓴 발레다.",
     source: { name: "브리태니커 「Swan Lake」", url: "https://www.britannica.com/topic/Swan-Lake-ballet-by-Tchaikovsky" }
   },
   {
