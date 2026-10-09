@@ -5,10 +5,10 @@ const QUESTIONS = [
   {
     id: "korhist-01",
     category: "한국사",
-    question: "『삼국유사』에 따르면 고조선(단군조선)을 세운 인물은?",
+    question: "『삼국유사』에 따르면 아사달에 도읍하고 고조선(단군조선)을 세운 인물은?",
     choices: ["단군왕검", "주몽", "온조", "박혁거세"],
     answer: 0,
-    explanation: "『삼국유사』는 단군왕검이 나라를 열어 이름을 조선이라 했다고 전한다.",
+    explanation: "『삼국유사』는 단군왕검이 아사달에 도읍하고 나라를 열어 조선이라 했다고 전한다.",
     source: { name: "한국민족문화대백과사전 「단군조선」", url: "https://encykorea.aks.ac.kr/Article/E0013554" }
   },
   {
@@ -35,7 +35,7 @@ const QUESTIONS = [
     question: "918년 궁예를 몰아내고 즉위하여 국호를 고려라 한 인물은?",
     choices: ["왕건", "견훤", "신검", "양길"],
     answer: 0,
-    explanation: "왕건은 918년 궁예를 내쫓고 즉위해 국호를 고려라 했다.",
+    explanation: "왕건은 918년 6월 궁예를 내쫓고 즉위해 국호를 고려라 했다.",
     source: { name: "한국민족문화대백과사전 「태조」", url: "https://encykorea.aks.ac.kr/Article/E0059032" }
   },
   {
@@ -62,7 +62,7 @@ const QUESTIONS = [
     question: "1592년 한산도대첩에서 학익진으로 일본 수군을 무찌른 전라좌수사는?",
     choices: ["이순신", "권율", "김시민", "곽재우"],
     answer: 0,
-    explanation: "1592년 음력 7월 전라좌수사 이순신이 이끈 조선 수군이 학익진으로 일본 수군 주력을 무찔렀다.",
+    explanation: "1592년 7월 전라좌수사 이순신이 이끈 조선 수군이 학익진으로 일본 수군 주력을 무찔렀다.",
     source: { name: "한국민족문화대백과사전 「한산도대첩」", url: "https://encykorea.aks.ac.kr/Article/E0061676" }
   },
   {
@@ -100,7 +100,7 @@ const QUESTIONS = [
     question: "오스트레일리아의 연방 수도는?",
     choices: ["캔버라", "시드니", "멜버른", "퍼스"],
     answer: 0,
-    explanation: "캔버라는 오스트레일리아 연방의 수도로, 남동부의 오스트레일리아 수도 특별구에 있다.",
+    explanation: "캔버라는 오스트레일리아 연방의 수도로, 오스트레일리아 수도 특별구(ACT)에 있다.",
     source: { name: "브리태니커 「Canberra」", url: "https://www.britannica.com/place/Canberra" }
   },
   {
@@ -115,10 +115,10 @@ const QUESTIONS = [
   {
     id: "geo-03",
     category: "세계지리",
-    question: "남아메리카 남쪽 끝에서 북쪽 카리브해 연안까지 이어지는 산계는?",
+    question: "남아메리카 남쪽 끝에서 대륙 서쪽을 따라 길게 이어지는 산계는?",
     choices: ["안데스산맥", "로키산맥", "우랄산맥", "아틀라스산맥"],
     answer: 0,
-    explanation: "안데스산맥은 남아메리카 남쪽 끝에서 북쪽 카리브해 연안까지 끊이지 않고 이어진다.",
+    explanation: "안데스산맥은 남아메리카 남쪽 끝에서 대륙 서쪽을 따라 길게 이어지는 산계다.",
     source: { name: "브리태니커 「Andes Mountains」", url: "https://www.britannica.com/place/Andes-Mountains" }
   },
   {
@@ -169,10 +169,10 @@ const QUESTIONS = [
   {
     id: "geo-09",
     category: "세계지리",
-    question: "빙하가 깎은 골짜기에 바닷물이 들어와 생긴, 내륙 깊이 뻗은 좁고 긴 만은?",
+    question: "빙하가 깎은 골짜기에 바닷물이 들어와 생긴 좁고 긴 만은?",
     choices: ["피오르", "석호", "삼각주", "사주"],
     answer: 0,
-    explanation: "피오르는 빙하 골짜기가 바닷물에 잠겨 생긴, 내륙 깊이 뻗은 좁고 긴 만이다.",
+    explanation: "피오르는 빙하가 깎은 골짜기가 바닷물에 잠겨 생긴 좁고 긴 만이다.",
     source: { name: "브리태니커 「Fjord」", url: "https://www.britannica.com/science/fjord" }
   },
   {
@@ -270,10 +270,10 @@ const QUESTIONS = [
   {
     id: "sci-10",
     category: "과학",
-    question: "적혈구 속에서 철 원자로 산소와 결합해 조직까지 산소를 나르는 단백질은?",
+    question: "적혈구 속에서 산소를 나르는 단백질은?",
     choices: ["헤모글로빈", "인슐린", "케라틴", "콜라겐"],
     answer: 0,
-    explanation: "헤모글로빈은 적혈구 속 철을 함유한 단백질로, 산소를 조직까지 운반한다.",
+    explanation: "헤모글로빈은 적혈구 속에서 산소를 나르는 단백질로, 만드는 데 철이 필요하다.",
     source: { name: "브리태니커 「Hemoglobin」", url: "https://www.britannica.com/science/hemoglobin" }
   },
 
@@ -344,10 +344,10 @@ const QUESTIONS = [
   {
     id: "art-08",
     category: "예술과 문화",
-    question: "1883년 건축가 가우디가 설계를 맡은 스페인 바르셀로나의 성당은?",
+    question: "건축가 가우디가 설계를 맡은 스페인 바르셀로나의 성당은?",
     choices: ["사그라다 파밀리아", "노트르담 대성당", "쾰른 대성당", "성 베드로 대성당"],
     answer: 0,
-    explanation: "바르셀로나의 사그라다 파밀리아는 1883년 카탈루냐 건축가 가우디가 설계를 맡았다.",
+    explanation: "사그라다 파밀리아는 스페인 바르셀로나에 있는 성당으로, 건축가 가우디가 설계를 맡았다.",
     source: { name: "브리태니커 「Sagrada Família」", url: "https://www.britannica.com/topic/Sagrada-Familia" }
   },
   {
