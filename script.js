@@ -167,6 +167,15 @@ function formatRetrySummary(correctCount, total) {
   return `${total}문제 중 ${correctCount}문제 맞힘`;
 }
 
+// 다시 풀기는 점수를 매기지 않으므로 점수 대신 "채점 안 함"을 보인다.
+function quizMetaLabel(game) {
+  return `${game.category}, ${MODES[game.mode]} 모드${game.isRetry ? ", 다시 풀기" : ""}`;
+}
+
+function scoreLabel(game) {
+  return game.isRetry ? "채점 안 함" : `점수 ${game.score}`;
+}
+
 // 현재 문항의 오답 보기 가운데 2개의 위치를 removed에 넣는다.
 function applyHint(game, rand = Math.random) {
   if (game.mode !== "hint" || game.hintUsed || game.answered) return game;
@@ -214,9 +223,9 @@ function startGame(mode, category) {
 function renderQuestion() {
   const g = state.game;
   const item = g.items[g.index];
-  $("quiz-meta").textContent = `${g.category}, ${MODES[g.mode]} 모드`;
+  $("quiz-meta").textContent = quizMetaLabel(g);
   $("quiz-progress").textContent = `${g.index + 1} / ${g.items.length}`;
-  $("quiz-score").textContent = `점수 ${g.score}`;
+  $("quiz-score").textContent = scoreLabel(g);
   $("quiz-question").textContent = item.question;
   choiceButtons().forEach((button, i) => {
     button.textContent = item.choices[i];
@@ -293,7 +302,7 @@ function showFeedback() {
     else if (i === result.choice) button.classList.add("wrong");
   });
   $("btn-hint").disabled = true;
-  $("quiz-score").textContent = `점수 ${g.score}`;
+  $("quiz-score").textContent = scoreLabel(g);
   $("feedback-verdict").textContent = result.correct ? "정답입니다." : result.timedOut ? "시간 초과입니다. 오답입니다." : "오답입니다.";
   $("feedback-verdict").className = result.correct ? "verdict-correct" : "verdict-wrong";
   $("feedback-explanation").textContent = item.explanation;
@@ -534,6 +543,12 @@ check("createRetry: 틀린 문항만 다시 섞어 냄", () => {
   assertEqual(r.items.map(q => q.id).sort(), [...g.wrongIds].sort());
 });
 check("formatRetrySummary", () => assertEqual(formatRetrySummary(2, 3), "3문제 중 2문제 맞힘"));
+check("다시 풀기 중에는 채점 안 함으로 보임", () => {
+  const g = applyAnswer(createGame("practice", "과학", sciSet()), 0);
+  const r = applyAnswer(createGame("practice", "과학", sciSet(), Math.random, true), 0);
+  assertEqual([quizMetaLabel(g), scoreLabel(g)], ["과학, 연습 모드", `점수 ${g.score}`]);
+  assertEqual([quizMetaLabel(r), scoreLabel(r)], ["과학, 연습 모드, 다시 풀기", "채점 안 함"]);
+});
 
 check("applyAnswer: 문항별 결과를 차례로 기록함", () => {
   let g = createGame("hint", "과학", sciSet());
