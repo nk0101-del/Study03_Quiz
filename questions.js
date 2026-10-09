@@ -5,19 +5,19 @@ const QUESTIONS = [
   {
     id: "korhist-01",
     category: "한국사",
-    question: "『삼국유사』에 따르면 아사달에 도읍하고 고조선(단군조선)을 세운 인물은?",
+    question: "『삼국유사』에 따르면 고조선(단군조선)을 세운 인물은?",
     choices: ["단군왕검", "주몽", "온조", "박혁거세"],
     answer: 0,
-    explanation: "『삼국유사』는 단군왕검이 아사달에 도읍하고 나라를 열어 조선이라 했다고 전한다.",
+    explanation: "『삼국유사』는 단군왕검이 나라를 열어 이름을 조선이라 했다고 전한다.",
     source: { name: "한국민족문화대백과사전 「단군조선」", url: "https://encykorea.aks.ac.kr/Article/E0013554" }
   },
   {
     id: "korhist-02",
     category: "한국사",
-    question: "고구려의 옛 장수 대조영이 698년 동모산에서 세운 나라는?",
+    question: "698년 대조영이 동모산에서 세운 나라는?",
     choices: ["발해", "후백제", "동부여", "대가야"],
     answer: 0,
-    explanation: "698년 고구려 옛 장수 대조영이 동모산에서 발해를 건국했다.",
+    explanation: "발해는 698년 대조영이 동모산에서 세운 나라로, 처음 이름은 진국이었다.",
     source: { name: "한국민족문화대백과사전 「발해」", url: "https://encykorea.aks.ac.kr/Article/E0021626" }
   },
   {
@@ -26,7 +26,7 @@ const QUESTIONS = [
     question: "675년 매소성 전투와 676년 기벌포 전투에서 신라와 싸운 나라는?",
     choices: ["당", "수", "왜", "거란"],
     answer: 0,
-    explanation: "나당전쟁은 신라와 당이 7년간 싸운 전쟁으로, 676년 기벌포 전투로 마무리되었다.",
+    explanation: "나당전쟁은 670년부터 676년까지 신라와 당이 싸운 전쟁으로, 676년 기벌포 전투로 마무리되었다.",
     source: { name: "한국민족문화대백과사전 「나당전쟁」", url: "https://encykorea.aks.ac.kr/Article/E0011307" }
   },
   {
@@ -35,7 +35,7 @@ const QUESTIONS = [
     question: "918년 궁예를 몰아내고 즉위하여 국호를 고려라 한 인물은?",
     choices: ["왕건", "견훤", "신검", "최영"],
     answer: 0,
-    explanation: "왕건은 918년 6월 궁예를 내쫓고 즉위해 국호를 고려라 했다.",
+    explanation: "왕건은 918년 궁예를 내쫓고 즉위해 국호를 고려라 했다.",
     source: { name: "한국민족문화대백과사전 「태조」", url: "https://encykorea.aks.ac.kr/Article/E0059032" }
   },
   {
@@ -62,7 +62,7 @@ const QUESTIONS = [
     question: "1592년 한산도대첩에서 학익진으로 일본 수군을 무찌른 전라좌수사는?",
     choices: ["이순신", "권율", "김시민", "곽재우"],
     answer: 0,
-    explanation: "1592년 7월 전라좌수사 이순신이 이끈 조선 수군이 학익진으로 일본 수군 주력을 무찔렀다.",
+    explanation: "1592년 음력 7월 전라좌수사 이순신이 이끈 조선 수군이 학익진으로 일본 수군 주력을 무찔렀다.",
     source: { name: "한국민족문화대백과사전 「한산도대첩」", url: "https://encykorea.aks.ac.kr/Article/E0061676" }
   },
   {
@@ -100,7 +100,7 @@ const QUESTIONS = [
     question: "오스트레일리아의 연방 수도는?",
     choices: ["캔버라", "시드니", "멜버른", "퍼스"],
     answer: 0,
-    explanation: "캔버라는 오스트레일리아 연방의 수도로, 시드니에서 남서쪽으로 약 240km 떨어져 있다.",
+    explanation: "캔버라는 오스트레일리아 연방의 수도로, 남동부의 오스트레일리아 수도 특별구에 있다.",
     source: { name: "브리태니커 「Canberra」", url: "https://www.britannica.com/place/Canberra" }
   },
   {
@@ -115,19 +115,19 @@ const QUESTIONS = [
   {
     id: "geo-03",
     category: "세계지리",
-    question: "남아메리카 남쪽 끝에서 카리브해 연안까지 약 8,900km 이어지는 산계는?",
+    question: "남아메리카 남쪽 끝에서 북쪽 카리브해 연안까지 이어지는 산계는?",
     choices: ["안데스산맥", "로키산맥", "우랄산맥", "아틀라스산맥"],
     answer: 0,
-    explanation: "안데스산맥은 남아메리카 남쪽 끝에서 북쪽 카리브해 연안까지 약 8,900km 이어진다.",
+    explanation: "안데스산맥은 남아메리카 남쪽 끝에서 북쪽 카리브해 연안까지 끊이지 않고 이어진다.",
     source: { name: "브리태니커 「Andes Mountains」", url: "https://www.britannica.com/place/Andes-Mountains" }
   },
   {
     id: "geo-04",
     category: "세계지리",
-    question: "북아프리카의 거의 전부를 차지하는 사막은?",
+    question: "북아프리카의 넓은 지역을 차지하는 사막은?",
     choices: ["사하라 사막", "고비 사막", "아타카마 사막", "칼라하리 사막"],
     answer: 0,
-    explanation: "사하라 사막은 북아프리카의 거의 전부를 차지하며, 동서 길이가 약 4,800km다.",
+    explanation: "사하라 사막은 북아프리카의 넓은 지역을 차지하며, 동서 길이가 약 4,800km다.",
     source: { name: "브리태니커 「Sahara」", url: "https://www.britannica.com/place/Sahara-desert-Africa" }
   },
   {
@@ -154,7 +154,7 @@ const QUESTIONS = [
     question: "2026년 현재 국토 면적을 기준으로 세계에서 가장 큰 나라는?",
     choices: ["러시아", "캐나다", "중국", "미국"],
     answer: 0,
-    explanation: "러시아는 면적이 세계 1위인 나라로, 2위 캐나다의 약 두 배에 이른다.",
+    explanation: "러시아는 국토 면적이 세계에서 가장 넓은 나라이며, 2위는 캐나다다.",
     source: { name: "브리태니커 「Russia」", url: "https://www.britannica.com/place/Russia" }
   },
   {
@@ -178,10 +178,10 @@ const QUESTIONS = [
   {
     id: "geo-10",
     category: "세계지리",
-    question: "1884년부터 1984년까지 국제 표준 본초 자오선(경도 0°)이 지난 런던의 지역은?",
+    question: "1884년 국제 자오선 회의에서 본초 자오선(경도 0°)이 지나는 곳으로 정한 런던의 지역은?",
     choices: ["그리니치", "웨스트민스터", "캠든", "첼시"],
     answer: 0,
-    explanation: "그리니치 자오선은 런던 그리니치를 지나는 경도 0°선으로, 1884~1984년 국제 표준이었다.",
+    explanation: "1884년 국제 회의는 런던 그리니치 왕립 천문대를 지나는 자오선을 경도 0°의 기준으로 정했다.",
     source: { name: "브리태니커 「Greenwich meridian」", url: "https://www.britannica.com/place/Greenwich-meridian" }
   },
 
@@ -208,7 +208,7 @@ const QUESTIONS = [
     id: "sci-03",
     category: "과학",
     question: "1953년 DNA가 이중 나선 구조임을 밝힌 두 과학자는?",
-    choices: ["왓슨과 크릭", "멘델과 다윈", "퀴리 부부", "보어와 러더퍼드"],
+    choices: ["왓슨과 크릭", "멘델과 다윈", "퀴리와 베크렐", "보어와 러더퍼드"],
     answer: 0,
     explanation: "1953년 왓슨과 크릭은 프랭클린과 윌킨스의 연구에 힘입어 DNA의 이중 나선 구조를 밝혔다.",
     source: { name: "브리태니커 「DNA」", url: "https://www.britannica.com/science/DNA" }
@@ -216,10 +216,10 @@ const QUESTIONS = [
   {
     id: "sci-04",
     category: "과학",
-    question: "포도당을 분해해 세포가 쓸 에너지(ATP)를 만들어 '세포의 발전소'라 불리는 세포 소기관은?",
+    question: "세포가 쓸 에너지(ATP)를 만들어 '세포의 발전소'라 불리는 세포 소기관은?",
     choices: ["미토콘드리아", "리보솜", "골지체", "액포"],
     answer: 0,
-    explanation: "미토콘드리아는 포도당을 분해해 ATP를 만들며 '세포의 발전소'라 불린다.",
+    explanation: "미토콘드리아는 세포가 쓰는 에너지인 ATP를 만들어 '세포의 발전소'라 불린다.",
     source: { name: "브리태니커 「Mitochondrion」", url: "https://www.britannica.com/science/mitochondrion" }
   },
   {
@@ -326,10 +326,10 @@ const QUESTIONS = [
   {
     id: "art-06",
     category: "예술과 문화",
-    question: "1876년에 작곡된 발레 음악 「백조의 호수」의 작곡가는?",
+    question: "1877년 모스크바 볼쇼이 극장에서 초연된 발레 「백조의 호수」의 작곡가는?",
     choices: ["차이콥스키", "스트라빈스키", "라흐마니노프", "림스키코르사코프"],
     answer: 0,
-    explanation: "「백조의 호수」는 러시아 작곡가 차이콥스키가 1876년에 작곡한 발레다.",
+    explanation: "「백조의 호수」는 러시아 작곡가 차이콥스키의 발레로, 1877년 볼쇼이 극장에서 초연되었다.",
     source: { name: "브리태니커 「Swan Lake」", url: "https://www.britannica.com/topic/Swan-Lake-ballet-by-Tchaikovsky" }
   },
   {
