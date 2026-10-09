@@ -13,7 +13,17 @@
   <main>
     <section id="screen-start" hidden>
       <h1>상식 퀴즈</h1>
-      <h2>모드 선택</h2>
+      <p>카테고리를 고르세요. 한 판은 10문제입니다.</p>
+      <div class="button-list">
+        <button data-category="한국사">한국사</button>
+        <button data-category="세계지리">세계지리</button>
+        <button data-category="과학">과학</button>
+        <button data-category="예술과 문화">예술과 문화</button>
+      </div>
+    </section>
+
+    <section id="screen-mode" hidden>
+      <h1 id="mode-title"></h1>
       <div class="mode-list">
         <button class="mode-button" data-mode="practice">
           <strong>연습 모드</strong>
@@ -29,17 +39,7 @@
           <span>문항마다 힌트를 1번 쓸 수 있고, 힌트는 오답 보기 2개를 지웁니다. 힌트 없이 맞히면 1점, 힌트를 쓰고 맞히면 0.5점입니다.</span>
         </button>
       </div>
-    </section>
-
-    <section id="screen-category" hidden>
-      <h1>카테고리 선택</h1>
-      <div class="button-list">
-        <button data-category="한국사">한국사</button>
-        <button data-category="세계지리">세계지리</button>
-        <button data-category="과학">과학</button>
-        <button data-category="예술과 문화">예술과 문화</button>
-      </div>
-      <button id="btn-category-home" class="secondary">처음으로</button>
+      <button id="btn-mode-back" class="secondary">뒤로</button>
     </section>
 
     <section id="screen-quiz" hidden>
@@ -56,7 +56,7 @@
         <button class="choice"></button>
         <button class="choice"></button>
       </div>
-      <button id="btn-hint" class="secondary" hidden>힌트</button>
+      <button id="btn-hint" class="secondary" hidden>힌트 (오답 2개 지우기)</button>
       <div id="feedback" hidden>
         <p id="feedback-verdict"></p>
         <p id="feedback-explanation"></p>
@@ -71,8 +71,9 @@
       <p id="result-note" class="notice" hidden>순위표에 기록되지 않음</p>
       <p id="retry-summary" hidden></p>
       <p id="retry-all-correct" hidden>모두 맞혔습니다.</p>
+      <ol id="result-list"></ol>
       <button id="btn-retry-wrong" class="primary" hidden>틀린 문제 다시 풀기</button>
-      <button id="btn-again" class="primary">다시 하기</button>
+      <button id="btn-again" class="primary">같은 모드 다시</button>
       <button id="btn-home" class="secondary">처음으로</button>
     </section>
 

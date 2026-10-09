@@ -94,7 +94,7 @@ h2 {
   color: #0969da;
 }
 
-#btn-category-home {
+#btn-mode-back {
   margin-top: 16px;
 }
 
@@ -148,6 +148,10 @@ h2 {
   color: #1f2328;
 }
 
+#quiz-timer.urgent {
+  color: #cf222e;
+}
+
 #quiz-question {
   font-size: 1.2rem;
   overflow-wrap: anywhere;
@@ -167,6 +171,20 @@ h2 {
 
 #feedback a {
   overflow-wrap: anywhere;
+}
+
+#result-list {
+  padding-left: 24px;
+  overflow-wrap: anywhere;
+}
+
+#result-list li {
+  margin-bottom: 8px;
+}
+
+#result-list .verdict-correct,
+#result-list .verdict-wrong {
+  font-size: 0.95rem;
 }
 
 .verdict-correct {
@@ -203,7 +221,8 @@ h2 {
 }
 
 .choice.removed {
-  visibility: hidden;
+  opacity: 0.45;
+  text-decoration: line-through;
 }
 
 #btn-hint:disabled {
