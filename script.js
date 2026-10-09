@@ -143,6 +143,15 @@ function isLastQuestion(game) {
   return game.index === game.items.length - 1;
 }
 
+function createRetry(game, all = QUESTIONS, rand = Math.random) {
+  const wrong = all.filter(q => game.wrongIds.includes(q.id));
+  return createGame("practice", game.category, wrong, rand, true);
+}
+
+function formatRetrySummary(correctCount, total) {
+  return `${total}문제 중 ${correctCount}문제 맞힘`;
+}
+
 // 현재 문항의 오답 보기 가운데 2개의 위치를 removed에 넣는다.
 function applyHint(game, rand = Math.random) {
   if (game.mode !== "hint" || game.hintUsed || game.answered) return game;
@@ -287,7 +296,19 @@ function showResult() {
   $("result-title").textContent = `${first.category}, ${MODES[first.mode]} 모드 결과`;
   $("result-score").textContent = formatScore(first.score, first.items.length);
   $("result-note").hidden = first.mode !== "practice";
+  // 점수는 처음 10문제의 결과만 보이고, 다시 풀기 결과는 따로 보인다.
+  const g = state.game;
+  $("retry-summary").hidden = !g.isRetry;
+  $("retry-summary").textContent = formatRetrySummary(g.correctCount, g.items.length);
+  $("retry-all-correct").hidden = !(g.isRetry && g.wrongIds.length === 0);
+  $("btn-retry-wrong").hidden = !(g.mode === "practice" && g.wrongIds.length > 0);
   showScreen("screen-result");
+}
+
+function startRetry() {
+  state.game = createRetry(state.game);
+  showScreen("screen-quiz");
+  renderQuestion();
 }
 
 function showDataErrors(errors) {
@@ -317,6 +338,7 @@ function init() {
   choiceButtons().forEach((button, i) => button.addEventListener("click", () => selectChoice(i)));
   $("btn-next").addEventListener("click", handleNext);
   $("btn-hint").addEventListener("click", useHint);
+  $("btn-retry-wrong").addEventListener("click", startRetry);
   $("btn-again").addEventListener("click", () => startGame(state.firstGame.mode, state.firstGame.category));
   $("btn-home").addEventListener("click", () => {
     stopTimer();
@@ -463,5 +485,19 @@ check("다음 문항에서 힌트를 다시 쓸 수 있음", () => {
   const n = nextQuestion(applyAnswer(applyHint(hintGame()), 0));
   assertEqual([n.hintUsed, n.removed], [false, []]);
 });
+
+check("createRetry: 틀린 문항만 다시 섞어 냄", () => {
+  const set = sciSet();
+  let g = createGame("practice", "과학", set);
+  for (let i = 0; i < 10; i++) {
+    const wrong = i < 3;
+    g = applyAnswer(g, wrong ? (g.items[i].answer + 1) % 4 : g.items[i].answer);
+    if (i < 9) g = nextQuestion(g);
+  }
+  const r = createRetry(g, set);
+  assertEqual([r.items.length, r.isRetry, r.mode, r.score], [3, true, "practice", 0]);
+  assertEqual(r.items.map(q => q.id).sort(), [...g.wrongIds].sort());
+});
+check("formatRetrySummary", () => assertEqual(formatRetrySummary(2, 3), "3문제 중 2문제 맞힘"));
 
 if (typeof document !== "undefined") init();
