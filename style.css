@@ -3,6 +3,11 @@
   box-sizing: border-box;
 }
 
+/* .primary, .secondary의 display가 hidden 속성을 덮어쓰지 않게 한다. */
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, "Malgun Gothic", sans-serif;

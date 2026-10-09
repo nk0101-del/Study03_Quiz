@@ -535,6 +535,7 @@ check("formatRetrySummary", () => assertEqual(formatRetrySummary(2, 3), "3문제
 
 - 연습 모드 결과 화면에서 `state.game.wrongIds`가 비어 있지 않으면 `[틀린 문제 다시 풀기]`를 보인다.
 - 누르면 `startRetry()`가 `state.game = createRetry(state.game)`로 두고 문제 화면을 보인다. `state.firstGame`은 바꾸지 않는다. `#quiz-progress`는 `1 / 3`처럼 다시 풀 문항 수를 기준으로 한다.
+- 다시 풀기 중에는 점수를 매기지 않으므로 `#quiz-meta`를 `과학, 연습 모드, 다시 풀기`로, `#quiz-score`를 `채점 안 함`으로 보인다(2026-10-09 추가, 완성본 참고).
 - 다시 풀기가 끝난 결과 화면은 `#result-score`에 `state.firstGame`의 점수를 그대로 보이고, `#retry-summary`에 `formatRetrySummary(...)`를 보인다. 또 틀린 문항이 있으면 버튼을 다시 보이고, 없으면 `모두 맞혔습니다.`를 보인다.
 - `[같은 모드 다시]`(처음 계획의 `[다시 하기]`)는 다시 풀기 중이어도 처음 10문제의 새 판을 시작한다.
 
