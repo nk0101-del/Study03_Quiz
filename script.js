@@ -34,6 +34,8 @@ function runSelfTest() {
 const CATEGORIES = ["한국사", "세계지리", "과학", "예술과 문화"];
 const CATEGORY_IDS = { "한국사": "korhist", "세계지리": "geo", "과학": "sci", "예술과 문화": "art" };
 const QUESTIONS_PER_GAME = 10;
+const MODES = { practice: "연습", speed: "스피드", hint: "힌트" };
+const TIME_LIMIT = 15;
 
 // ---------- 문항 처리 (순수 함수) ----------
 
@@ -114,6 +116,7 @@ function createGame(mode, category, questions, rand = Math.random, isRetry = fal
     hintUsed: false,
     removed: [],
     lastResult: null,
+    results: [],
     isRetry
   };
 }
@@ -129,8 +132,22 @@ function applyAnswer(game, choiceIndex) {
     score: game.score + scoreFor(correct, game.hintUsed),
     correctCount: game.correctCount + (correct ? 1 : 0),
     wrongIds: correct ? game.wrongIds : [...game.wrongIds, item.id],
-    lastResult: { correct, choice: choiceIndex, timedOut: choiceIndex === null }
+    lastResult: { correct, choice: choiceIndex, timedOut: choiceIndex === null },
+    results: [...game.results, {
+      id: item.id,
+      question: item.question,
+      answerText: item.choices[item.answer],
+      correct,
+      timedOut: choiceIndex === null,
+      hintUsed: game.hintUsed
+    }]
   };
+}
+
+// 결과 화면의 문항별 한 줄. 맞힌 문항은 정답을 다시 적지 않는다.
+function formatResultLine(result) {
+  if (result.correct) return result.hintUsed ? "정답 (힌트 0.5점)" : "정답";
+  return `${result.timedOut ? "시간 초과" : "오답"}, 정답: ${result.answerText}`;
 }
 
 function nextQuestion(game) {
@@ -139,6 +156,23 @@ function nextQuestion(game) {
 
 function isLastQuestion(game) {
   return game.index === game.items.length - 1;
+}
+
+function createRetry(game, all = QUESTIONS, rand = Math.random) {
+  const wrong = all.filter(q => game.wrongIds.includes(q.id));
+  return createGame("practice", game.category, wrong, rand, true);
+}
+
+function formatRetrySummary(correctCount, total) {
+  return `${total}문제 중 ${correctCount}문제 맞힘`;
+}
+
+// 현재 문항의 오답 보기 가운데 2개의 위치를 removed에 넣는다.
+function applyHint(game, rand = Math.random) {
+  if (game.mode !== "hint" || game.hintUsed || game.answered) return game;
+  const item = game.items[game.index];
+  const wrong = [0, 1, 2, 3].filter(i => i !== item.answer);
+  return { ...game, hintUsed: true, removed: shuffle(wrong, rand).slice(0, 2) };
 }
 
 // ---------- 화면 ----------
@@ -162,7 +196,13 @@ function showSelfTest() {
 const $ = id => document.getElementById(id);
 const choiceButtons = () => [...document.querySelectorAll("#choices .choice")];
 
-const state = { game: null, firstGame: null };
+const state = { game: null, firstGame: null, category: null, timerId: null, timeLeft: 0 };
+
+function chooseCategory(category) {
+  state.category = category;
+  $("mode-title").textContent = `${category}, 모드를 고르세요`;
+  showScreen("screen-mode");
+}
 
 function startGame(mode, category) {
   state.game = createGame(mode, category, questionsOf(category));
@@ -174,7 +214,7 @@ function startGame(mode, category) {
 function renderQuestion() {
   const g = state.game;
   const item = g.items[g.index];
-  $("quiz-meta").textContent = `${g.category}, 연습 모드`;
+  $("quiz-meta").textContent = `${g.category}, ${MODES[g.mode]} 모드`;
   $("quiz-progress").textContent = `${g.index + 1} / ${g.items.length}`;
   $("quiz-score").textContent = `점수 ${g.score}`;
   $("quiz-question").textContent = item.question;
@@ -185,9 +225,59 @@ function renderQuestion() {
   });
   $("feedback").hidden = true;
   $("btn-next").hidden = true;
+  $("btn-hint").hidden = g.mode !== "hint";
+  $("btn-hint").disabled = false;
+  $("btn-hint").textContent = "힌트 (오답 2개 지우기)";
+  $("quiz-timer").hidden = g.mode !== "speed";
+  if (g.mode === "speed") startTimer();
+}
+
+// 이전 타이머를 먼저 멈춰서 타이머가 겹쳐 돌지 않게 한다.
+function startTimer() {
+  stopTimer();
+  state.timeLeft = TIME_LIMIT;
+  renderTimer();
+  state.timerId = setInterval(() => {
+    state.timeLeft -= 1;
+    renderTimer();
+    if (state.timeLeft <= 0) onTimeout();
+  }, 1000);
+}
+
+// 5초 이하에서는 빨간 글자로 보인다.
+function renderTimer() {
+  $("quiz-timer").textContent = `남은 시간 ${state.timeLeft}초`;
+  $("quiz-timer").classList.toggle("urgent", state.timeLeft <= 5);
+}
+
+function stopTimer() {
+  clearInterval(state.timerId);
+  state.timerId = null;
+}
+
+function onTimeout() {
+  stopTimer();
+  const before = state.game;
+  state.game = applyAnswer(state.game, null);
+  if (state.game !== before) showFeedback();
+}
+
+// 지운 보기는 흐리게 남겨 두어 다른 보기의 위치가 바뀌지 않게 한다.
+function useHint() {
+  const before = state.game;
+  state.game = applyHint(state.game);
+  if (state.game === before) return;
+  const buttons = choiceButtons();
+  for (const i of state.game.removed) {
+    buttons[i].classList.add("removed");
+    buttons[i].disabled = true;
+  }
+  $("btn-hint").disabled = true;
+  $("btn-hint").textContent = "힌트 사용함";
 }
 
 function selectChoice(index) {
+  stopTimer();
   const before = state.game;
   state.game = applyAnswer(state.game, index);
   if (state.game !== before) showFeedback();
@@ -202,8 +292,9 @@ function showFeedback() {
     if (i === item.answer) button.classList.add("correct");
     else if (i === result.choice) button.classList.add("wrong");
   });
+  $("btn-hint").disabled = true;
   $("quiz-score").textContent = `점수 ${g.score}`;
-  $("feedback-verdict").textContent = result.correct ? "정답입니다." : "오답입니다.";
+  $("feedback-verdict").textContent = result.correct ? "정답입니다." : result.timedOut ? "시간 초과입니다. 오답입니다." : "오답입니다.";
   $("feedback-verdict").className = result.correct ? "verdict-correct" : "verdict-wrong";
   $("feedback-explanation").textContent = item.explanation;
   $("feedback-source").textContent = `출처: ${item.source.name}`;
@@ -224,11 +315,35 @@ function handleNext() {
 }
 
 function showResult() {
+  stopTimer();
   const first = state.firstGame;
-  $("result-title").textContent = `${first.category}, 연습 모드 결과`;
+  $("result-title").textContent = `${first.category}, ${MODES[first.mode]} 모드 결과`;
   $("result-score").textContent = formatScore(first.score, first.items.length);
   $("result-note").hidden = first.mode !== "practice";
+  // 점수는 처음 10문제의 결과만 보이고, 다시 풀기 결과는 따로 보인다.
+  const g = state.game;
+  $("retry-summary").hidden = !g.isRetry;
+  $("retry-summary").textContent = formatRetrySummary(g.correctCount, g.items.length);
+  $("retry-all-correct").hidden = !(g.isRetry && g.wrongIds.length === 0);
+  $("btn-retry-wrong").hidden = !(g.mode === "practice" && g.wrongIds.length > 0);
+  // 문항별 목록은 방금 푼 판(다시 풀기 중이면 다시 푼 문항)을 보인다.
+  $("result-list").replaceChildren(...g.results.map(result => {
+    const li = document.createElement("li");
+    const question = document.createElement("div");
+    question.textContent = result.question;
+    const line = document.createElement("div");
+    line.textContent = formatResultLine(result);
+    line.className = result.correct ? "verdict-correct" : "verdict-wrong";
+    li.append(question, line);
+    return li;
+  }));
   showScreen("screen-result");
+}
+
+function startRetry() {
+  state.game = createRetry(state.game);
+  showScreen("screen-quiz");
+  renderQuestion();
 }
 
 function showDataErrors(errors) {
@@ -249,12 +364,21 @@ function init() {
     return;
   }
   for (const button of document.querySelectorAll("[data-category]")) {
-    button.addEventListener("click", () => startGame("practice", button.dataset.category));
+    button.addEventListener("click", () => chooseCategory(button.dataset.category));
   }
+  for (const button of document.querySelectorAll("[data-mode]")) {
+    button.addEventListener("click", () => startGame(button.dataset.mode, state.category));
+  }
+  $("btn-mode-back").addEventListener("click", () => showScreen("screen-start"));
   choiceButtons().forEach((button, i) => button.addEventListener("click", () => selectChoice(i)));
   $("btn-next").addEventListener("click", handleNext);
+  $("btn-hint").addEventListener("click", useHint);
+  $("btn-retry-wrong").addEventListener("click", startRetry);
   $("btn-again").addEventListener("click", () => startGame(state.firstGame.mode, state.firstGame.category));
-  $("btn-home").addEventListener("click", () => showScreen("screen-start"));
+  $("btn-home").addEventListener("click", () => {
+    stopTimer();
+    showScreen("screen-start");
+  });
   showScreen("screen-start");
 }
 
@@ -363,6 +487,73 @@ check("nextQuestion과 isLastQuestion", () => {
   assertEqual([g.index, g.answered, g.lastResult], [1, false, null]);
   for (let i = 1; i < 9; i++) g = nextQuestion(applyAnswer(g, 0));
   assertEqual([g.index, isLastQuestion(g)], [9, true]);
+});
+
+check("모드 3개의 표시 이름", () => assertEqual(MODES, { practice: "연습", speed: "스피드", hint: "힌트" }));
+check("스피드 제한 시간은 15초", () => assertEqual(TIME_LIMIT, 15));
+
+const hintGame = () => createGame("hint", "과학", sciSet());
+check("applyHint: 오답 2개를 지우고 정답은 남김", () => {
+  const g = hintGame();
+  const h = applyHint(g);
+  assertEqual([h.hintUsed, h.removed.length, new Set(h.removed).size], [true, 2, 2]);
+  assertEqual(h.removed.includes(g.items[0].answer), false);
+  assertEqual(g.hintUsed, false);
+});
+check("applyHint: 한 문항에 한 번만", () => {
+  const h = applyHint(hintGame());
+  assertEqual(applyHint(h) === h, true);
+});
+check("applyHint: 힌트 모드가 아니면 동작하지 않음", () => {
+  const g = createGame("practice", "과학", sciSet());
+  assertEqual(applyHint(g) === g, true);
+});
+check("applyHint: 답한 뒤에는 동작하지 않음", () => {
+  const a = applyAnswer(hintGame(), 0);
+  assertEqual(applyHint(a) === a, true);
+});
+check("힌트를 쓰고 맞히면 0.5점", () => {
+  const h = applyHint(hintGame());
+  assertEqual(applyAnswer(h, h.items[0].answer).score, 0.5);
+});
+check("다음 문항에서 힌트를 다시 쓸 수 있음", () => {
+  const n = nextQuestion(applyAnswer(applyHint(hintGame()), 0));
+  assertEqual([n.hintUsed, n.removed], [false, []]);
+});
+
+check("createRetry: 틀린 문항만 다시 섞어 냄", () => {
+  const set = sciSet();
+  let g = createGame("practice", "과학", set);
+  for (let i = 0; i < 10; i++) {
+    const wrong = i < 3;
+    g = applyAnswer(g, wrong ? (g.items[i].answer + 1) % 4 : g.items[i].answer);
+    if (i < 9) g = nextQuestion(g);
+  }
+  const r = createRetry(g, set);
+  assertEqual([r.items.length, r.isRetry, r.mode, r.score], [3, true, "practice", 0]);
+  assertEqual(r.items.map(q => q.id).sort(), [...g.wrongIds].sort());
+});
+check("formatRetrySummary", () => assertEqual(formatRetrySummary(2, 3), "3문제 중 2문제 맞힘"));
+
+check("applyAnswer: 문항별 결과를 차례로 기록함", () => {
+  let g = createGame("hint", "과학", sciSet());
+  const first = g.items[0];
+  g = nextQuestion(applyAnswer(applyHint(g), first.answer));
+  const second = g.items[1];
+  g = nextQuestion(applyAnswer(g, null));
+  const third = g.items[2];
+  g = applyAnswer(g, (third.answer + 1) % 4);
+  assertEqual(g.results, [
+    { id: first.id, question: first.question, answerText: first.choices[first.answer], correct: true, timedOut: false, hintUsed: true },
+    { id: second.id, question: second.question, answerText: second.choices[second.answer], correct: false, timedOut: true, hintUsed: false },
+    { id: third.id, question: third.question, answerText: third.choices[third.answer], correct: false, timedOut: false, hintUsed: false }
+  ]);
+});
+check("formatResultLine: 정답, 힌트, 시간 초과, 오답", () => {
+  const r = (correct, timedOut, hintUsed) => ({ answerText: "금", correct, timedOut, hintUsed });
+  assertEqual(
+    [formatResultLine(r(true, false, false)), formatResultLine(r(true, false, true)), formatResultLine(r(false, true, false)), formatResultLine(r(false, false, false))],
+    ["정답", "정답 (힌트 0.5점)", "시간 초과, 정답: 금", "오답, 정답: 금"]);
 });
 
 if (typeof document !== "undefined") init();
