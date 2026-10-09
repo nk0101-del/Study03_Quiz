@@ -13,18 +13,33 @@
   <main>
     <section id="screen-start" hidden>
       <h1>상식 퀴즈</h1>
-      <div class="card">
-        <h2>연습 모드</h2>
-        <p>시간 제한과 힌트가 없고, 맞히면 1점입니다.</p>
-        <p class="notice">순위표에 기록되지 않음</p>
+      <h2>모드 선택</h2>
+      <div class="mode-list">
+        <button class="mode-button" data-mode="practice">
+          <strong>연습 모드</strong>
+          <span>시간 제한과 힌트가 없고, 맞히면 1점입니다.</span>
+          <span class="notice">순위표에 기록되지 않음</span>
+        </button>
+        <button class="mode-button" data-mode="speed">
+          <strong>스피드 모드</strong>
+          <span>문항마다 15초가 주어지고, 시간이 지나면 오답입니다. 맞히면 1점입니다.</span>
+        </button>
+        <button class="mode-button" data-mode="hint">
+          <strong>힌트 모드</strong>
+          <span>문항마다 힌트를 1번 쓸 수 있고, 힌트는 오답 보기 2개를 지웁니다. 힌트 없이 맞히면 1점, 힌트를 쓰고 맞히면 0.5점입니다.</span>
+        </button>
       </div>
-      <h2>카테고리</h2>
+    </section>
+
+    <section id="screen-category" hidden>
+      <h1>카테고리 선택</h1>
       <div class="button-list">
         <button data-category="한국사">한국사</button>
         <button data-category="세계지리">세계지리</button>
         <button data-category="과학">과학</button>
         <button data-category="예술과 문화">예술과 문화</button>
       </div>
+      <button id="btn-category-home" class="secondary">처음으로</button>
     </section>
 
     <section id="screen-quiz" hidden>

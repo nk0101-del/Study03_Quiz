@@ -34,6 +34,7 @@ function runSelfTest() {
 const CATEGORIES = ["한국사", "세계지리", "과학", "예술과 문화"];
 const CATEGORY_IDS = { "한국사": "korhist", "세계지리": "geo", "과학": "sci", "예술과 문화": "art" };
 const QUESTIONS_PER_GAME = 10;
+const MODES = { practice: "연습", speed: "스피드", hint: "힌트" };
 
 // ---------- 문항 처리 (순수 함수) ----------
 
@@ -162,7 +163,12 @@ function showSelfTest() {
 const $ = id => document.getElementById(id);
 const choiceButtons = () => [...document.querySelectorAll("#choices .choice")];
 
-const state = { game: null, firstGame: null };
+const state = { game: null, firstGame: null, mode: null };
+
+function chooseMode(mode) {
+  state.mode = mode;
+  showScreen("screen-category");
+}
 
 function startGame(mode, category) {
   state.game = createGame(mode, category, questionsOf(category));
@@ -174,7 +180,7 @@ function startGame(mode, category) {
 function renderQuestion() {
   const g = state.game;
   const item = g.items[g.index];
-  $("quiz-meta").textContent = `${g.category}, 연습 모드`;
+  $("quiz-meta").textContent = `${g.category}, ${MODES[g.mode]} 모드`;
   $("quiz-progress").textContent = `${g.index + 1} / ${g.items.length}`;
   $("quiz-score").textContent = `점수 ${g.score}`;
   $("quiz-question").textContent = item.question;
@@ -225,7 +231,7 @@ function handleNext() {
 
 function showResult() {
   const first = state.firstGame;
-  $("result-title").textContent = `${first.category}, 연습 모드 결과`;
+  $("result-title").textContent = `${first.category}, ${MODES[first.mode]} 모드 결과`;
   $("result-score").textContent = formatScore(first.score, first.items.length);
   $("result-note").hidden = first.mode !== "practice";
   showScreen("screen-result");
@@ -248,9 +254,13 @@ function init() {
     showDataErrors(errors);
     return;
   }
-  for (const button of document.querySelectorAll("[data-category]")) {
-    button.addEventListener("click", () => startGame("practice", button.dataset.category));
+  for (const button of document.querySelectorAll("[data-mode]")) {
+    button.addEventListener("click", () => chooseMode(button.dataset.mode));
   }
+  for (const button of document.querySelectorAll("[data-category]")) {
+    button.addEventListener("click", () => startGame(state.mode, button.dataset.category));
+  }
+  $("btn-category-home").addEventListener("click", () => showScreen("screen-start"));
   choiceButtons().forEach((button, i) => button.addEventListener("click", () => selectChoice(i)));
   $("btn-next").addEventListener("click", handleNext);
   $("btn-again").addEventListener("click", () => startGame(state.firstGame.mode, state.firstGame.category));
@@ -364,5 +374,7 @@ check("nextQuestion과 isLastQuestion", () => {
   for (let i = 1; i < 9; i++) g = nextQuestion(applyAnswer(g, 0));
   assertEqual([g.index, isLastQuestion(g)], [9, true]);
 });
+
+check("모드 3개의 표시 이름", () => assertEqual(MODES, { practice: "연습", speed: "스피드", hint: "힌트" }));
 
 if (typeof document !== "undefined") init();
