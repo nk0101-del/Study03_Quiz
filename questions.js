@@ -33,7 +33,7 @@ const QUESTIONS = [
     id: "korhist-04",
     category: "한국사",
     question: "918년 궁예를 몰아내고 즉위하여 국호를 고려라 한 인물은?",
-    choices: ["왕건", "견훤", "신검", "최영"],
+    choices: ["왕건", "견훤", "신검", "양길"],
     answer: 0,
     explanation: "왕건은 918년 궁예를 내쫓고 즉위해 국호를 고려라 했다.",
     source: { name: "한국민족문화대백과사전 「태조」", url: "https://encykorea.aks.ac.kr/Article/E0059032" }
