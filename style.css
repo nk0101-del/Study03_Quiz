@@ -143,6 +143,11 @@ h2 {
   font-size: 0.95rem;
 }
 
+#quiz-timer {
+  font-weight: bold;
+  color: #1f2328;
+}
+
 #quiz-question {
   font-size: 1.2rem;
   overflow-wrap: anywhere;

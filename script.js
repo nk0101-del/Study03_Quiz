@@ -35,6 +35,7 @@ const CATEGORIES = ["한국사", "세계지리", "과학", "예술과 문화"];
 const CATEGORY_IDS = { "한국사": "korhist", "세계지리": "geo", "과학": "sci", "예술과 문화": "art" };
 const QUESTIONS_PER_GAME = 10;
 const MODES = { practice: "연습", speed: "스피드", hint: "힌트" };
+const TIME_LIMIT = 15;
 
 // ---------- 문항 처리 (순수 함수) ----------
 
@@ -163,7 +164,7 @@ function showSelfTest() {
 const $ = id => document.getElementById(id);
 const choiceButtons = () => [...document.querySelectorAll("#choices .choice")];
 
-const state = { game: null, firstGame: null, mode: null };
+const state = { game: null, firstGame: null, mode: null, timerId: null, timeLeft: 0 };
 
 function chooseMode(mode) {
   state.mode = mode;
@@ -191,9 +192,36 @@ function renderQuestion() {
   });
   $("feedback").hidden = true;
   $("btn-next").hidden = true;
+  $("quiz-timer").hidden = g.mode !== "speed";
+  if (g.mode === "speed") startTimer();
+}
+
+// 이전 타이머를 먼저 멈춰서 타이머가 겹쳐 돌지 않게 한다.
+function startTimer() {
+  stopTimer();
+  state.timeLeft = TIME_LIMIT;
+  $("quiz-timer").textContent = `남은 시간 ${state.timeLeft}초`;
+  state.timerId = setInterval(() => {
+    state.timeLeft -= 1;
+    $("quiz-timer").textContent = `남은 시간 ${state.timeLeft}초`;
+    if (state.timeLeft <= 0) onTimeout();
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(state.timerId);
+  state.timerId = null;
+}
+
+function onTimeout() {
+  stopTimer();
+  const before = state.game;
+  state.game = applyAnswer(state.game, null);
+  if (state.game !== before) showFeedback();
 }
 
 function selectChoice(index) {
+  stopTimer();
   const before = state.game;
   state.game = applyAnswer(state.game, index);
   if (state.game !== before) showFeedback();
@@ -209,7 +237,7 @@ function showFeedback() {
     else if (i === result.choice) button.classList.add("wrong");
   });
   $("quiz-score").textContent = `점수 ${g.score}`;
-  $("feedback-verdict").textContent = result.correct ? "정답입니다." : "오답입니다.";
+  $("feedback-verdict").textContent = result.correct ? "정답입니다." : result.timedOut ? "시간 초과입니다. 오답입니다." : "오답입니다.";
   $("feedback-verdict").className = result.correct ? "verdict-correct" : "verdict-wrong";
   $("feedback-explanation").textContent = item.explanation;
   $("feedback-source").textContent = `출처: ${item.source.name}`;
@@ -230,6 +258,7 @@ function handleNext() {
 }
 
 function showResult() {
+  stopTimer();
   const first = state.firstGame;
   $("result-title").textContent = `${first.category}, ${MODES[first.mode]} 모드 결과`;
   $("result-score").textContent = formatScore(first.score, first.items.length);
@@ -264,7 +293,10 @@ function init() {
   choiceButtons().forEach((button, i) => button.addEventListener("click", () => selectChoice(i)));
   $("btn-next").addEventListener("click", handleNext);
   $("btn-again").addEventListener("click", () => startGame(state.firstGame.mode, state.firstGame.category));
-  $("btn-home").addEventListener("click", () => showScreen("screen-start"));
+  $("btn-home").addEventListener("click", () => {
+    stopTimer();
+    showScreen("screen-start");
+  });
   showScreen("screen-start");
 }
 
@@ -376,5 +408,6 @@ check("nextQuestion과 isLastQuestion", () => {
 });
 
 check("모드 3개의 표시 이름", () => assertEqual(MODES, { practice: "연습", speed: "스피드", hint: "힌트" }));
+check("스피드 제한 시간은 15초", () => assertEqual(TIME_LIMIT, 15));
 
 if (typeof document !== "undefined") init();
